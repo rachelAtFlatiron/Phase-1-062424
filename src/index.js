@@ -86,11 +86,15 @@ function formatPrice(price){
   //console.log(`$${Number.parseFloat(price).toFixed(2)})`
 }
 
-
 //✅ 3. I DO: Make an arrow function version of formatPrice
 //💡 why const and not let?
 //💡 implicit return, how to do explicit return?
 formatPrice = (price) => `$${Number.parseFloat(price).toFixed(2)}`
+
+//🛑 demo HOISTING arrow vs defined functions
+//console.log(formatPrice(3.3))
+//console.log(formatPriceArrow(3))
+
 
 //✅ 4. WE DO: create a blurb() function that accepts a book as an argument and logs a message in the following format:
 //'Eloquent JavaScript: A Modern Introduction to Programming by Marjin Haverbeke is on sale for $10.00'
