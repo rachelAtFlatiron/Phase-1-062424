@@ -21,8 +21,6 @@ title: "01_function_scope"
   <div style="width: 70%">
 
   - The more you participate the more you learn! 
-  - Use Zoom's Raise Hand feature {.fragment}
-  - Protect the Zoom chat! {.fragment}
   - 🤯 The moment you are confused, raise your hand. You're not alone! {.fragment}
   - "I don't know" is OK. Guessing is also OK! Mistakes => Learning! {.fragment}
   - 📷 on 🙏 {.fragment}
@@ -38,6 +36,7 @@ title: "01_function_scope"
     <iframe src="https://giphy.com/embed/VTc0g9IKEpLAk" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/funny-everyone-VTc0g9IKEpLAk">via GIPHY</a></p>
   </div>
   <div style="width: 70%">
+
   - it can help
   - it can also hurt 😬 {.fragment}
   - If you get stuck, take a screenshot and refocus on our discussion {.fragment}
@@ -63,7 +62,6 @@ Extension | Description |
 [Tabnine AI Autocomplete](https://marketplace.visualstudio.com/items?itemName=TabNine.tabnine-vscode) | for code completion suggestions based on context
 [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) | auto format HTML, JSON, CSS, JS, etc.
 [HTML Boilerplate](https://marketplace.visualstudio.com/items?itemName=sidthesloth.html5-boilerplate) | create html boilerplate 
-[Console Ninja](https://marketplace.visualstudio.com/items?itemName=WallabyJs.console-ninja) | displays console.log output and runtime errors directly in your editor from your running browser
 [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) | run REST API calls in VSCode
 
 </div>
@@ -124,7 +122,7 @@ Function | Parameters | Behavior
 </div>
 
 <aside class="notes">
-- deliverables #a - g?
+CODE: #1 helloWorld(), #2 formatPrice(price)
 </aside>
 
 ---
@@ -135,16 +133,18 @@ Function | Parameters | Behavior
 
 - syntax {.fragment}
 - simplified vs fully featured {.fragment}
-- interchangeable for now (hoisting! 😅) {.fragment}
 - read more about [differences](https://dmitripavlutin.com/differences-between-arrow-and-regular-functions/) (or feel free to bookmark for later) {.fragment}
 
-![arrow function to reegular function conversion](https://res.cloudinary.com/dlzuobe8h/image/upload/v1670868681/phase1/arrow-to-reg-function_snfnkx.gif)
+![arrow function to regular function conversion](https://res.cloudinary.com/dlzuobe8h/image/upload/v1670868681/phase1/arrow-to-reg-function_snfnkx.gif)
 
 <aside class="notes">
 - function keyword gets hoisted to top of file scope <br />
 - arrow functions not as fully featured <br />
 - let, const gets hoisted but the value assigned to it doesn't get hoisted <br />
-- arrow functions are super good for callbacks
+- arrow functions are super good for callbacks <br />
+<br />
+CODE: #3, #4, #5a, #5b
+
 </aside>
 
 ---
@@ -165,7 +165,7 @@ Function | Parameters | Behavior
 <aside class="notes">
 - CB function: function we pass to another function (e.g. setTimeOut/setInterval, <strong>addEventListener</strong>) <br />
 - function that accepts CB: higher-order function <br />
-- if we use CB solely for that higher-order function, we may be able to define it anonymously
+- if we use CB solely for that higher-order function, we may be able to define it anonymously <br /><br />
 </aside>
 
 ---
@@ -176,6 +176,7 @@ Function | Parameters | Behavior
 ![Callbacks pt2](./callbacks-pt-2.drawio.svg)
 
 <aside class="notes">
+CODE: #5c, #5d, #5e, #6
 </aside>
 
 ---
@@ -194,22 +195,6 @@ Function | Parameters | Behavior
 - var will be accessible outside of block scope <br />
 - applies to us: where do I need access to information, note .map/.forEach iterations <br />
 - where you define variable determines its scope <br />
-</aside>
-
----
-
-<div style="font-size: 0.75em">
-
-### Links!
-
-Resource | Location | Description
----------|----------|---------
- Starter Code | [GitHub Repo](https://github.com/learn-co-students/SENG-LIVE-101022-Phase-1-JS) | separate folder for each day's lecture contains the code and any related assets
- Recordings | [Google Sheet](https://docs.google.com/spreadsheets/d/139yeG9joHfaP8hT44z2iSLMv5ScLSc86ZKZ51csIfHo/edit#gid=0) | Links to the starter & solution code for each days video along with the video link and a notetaking doc you can use for practice 
-
-</div>
-
-<aside class="notes">
 </aside>
 
 ---
