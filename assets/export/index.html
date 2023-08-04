@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>P1L5 - POST Requests slides</title>
+  <title>05_post_request</title>
 
   <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
   <meta name="author" content="Hakim El Hattab">
@@ -16,6 +16,8 @@
 
   <link rel="stylesheet" href="libs/reveal.js/4.3.1/reset.css">
   <link rel="stylesheet" href="libs/reveal.js/4.3.1/reveal.css">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
   <!-- highlight Theme -->
   
@@ -49,10 +51,15 @@
 
    <!-- css list -->
 	
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
-  
 
    
+<style>
+  :root {
+     --r-main-font-size: 24px;
+        
+  }
+</style>
+
 
 </head>
 
@@ -86,7 +93,10 @@
 <li>Observe how to send a POST request using HTML forms and JavaScript</li>
 <li>Explain the difference between optimistic and pessimistic rendering</li>
 </ul>
-
+<aside class="notes">
+- persist data to database / modify file <br />
+- update both DOM and database, observe changes
+</aside>
             </section>
     
 
@@ -100,7 +110,8 @@
   alt="fetch diagram"
   style="width: 100%"
 /></p>
-
+<aside class="notes">
+</aside>
             </section>
     
 
@@ -114,7 +125,8 @@
   alt="Data display behavior"
   style="width: 90%"
 /></p>
-
+<aside class="notes">
+</aside>
             </section>
     
 
@@ -128,7 +140,9 @@
   alt="Data display behavior with fetch"
   style="width: 90%"
 /></p>
-
+<aside class="notes">
+- adding new behavior: submit event
+</aside>
             </section>
     
 
@@ -152,7 +166,14 @@
   body: JSON.stringify(data) // body data type must match "Content-Type" header
 });</code></pre>
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch#supplying_request_options">MDN’s article on using the Fetch API</a></p>
-
+<aside class="notes">
+- non-get request - need to do some configuration <br />
+- from MDNs article <br />
+- CORS: cross-origin resource sharing (chatGPT this?) <br />
+- have to send information (data) in the body <br />
+- default for POST is application/x-www-form-urlencoded, where data gets sent along with the url (after the ?) <br />
+- json-server will always respond with json <br />
+</aside>
             </section>
     
 
@@ -166,7 +187,14 @@
   alt="Optimistic rendering vs Pessimistic rendering"
   width="80%"
 /></p>
-
+<aside class="notes">
+- optimistic: dom and server updates are not dependant on one another (not checking if things were successful on the server)<br />
+- DOM UPDATES ARE SYNCHRONOUS <br />
+- DOM will end up updating before server updates <br />
+- if server update fails, we need to update DOM accordingly, thus putting in a catch <br />
+- pros: faster (ex. iMessage, see text immediately but then there is the "failed to send" that shows us what happened on the server; progress bars); good for not-so-fast connections <br />
+- pessimistic: make sure our server updated correctly before doing anything with our DOM, render only happens when async update is complete<br />
+</aside>
             </section>
     
 
@@ -182,7 +210,9 @@
 <li>Fetch returns a resolved response even when we get an error from the API server.</li>
 </ul>
 <p class="fragment">This happens consistently as we send fetch requests, so we’ll end up typing a lot of boilerplate each time–especially when we want to add a catch to our fetch call.</p>
-
+<aside class="notes">
+- if response is error code, its still considered a fulfilled promise (which doesn't help us with error handling)...put fetch statements in boiler plate functions
+</aside>
             </section>
     
 
@@ -219,6 +249,26 @@ function postJSON(url, data) {
       }
     })
 }</code></pre>
+<aside class="notes">
+- check if response is ok <br />
+- thrown error will be caught <br />
+- throw...catch... are used together <br />
+- located in src/request_helpers.js
+</aside>
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h2>Let’s Code</h2>
+<ol>
+<li>Submit store form -&gt; update DOM (select dropdown)</li>
+<li>Submit book form -&gt; update DOM -&gt; add to database</li>
+</ol>
+
             </section>
     
 
@@ -310,7 +360,7 @@ function postJSON(url, data) {
       //#keyboardCondition: null,
       overview: true,
       center: true,
-      touch: true,
+      touch: false,
       loop: false,
       rtl: false,
       //#navigationMode: 'default', linear grid
@@ -357,9 +407,9 @@ function postJSON(url, data) {
       parallaxBackgroundVertical: 0,
 
       //Presentation Size
-      width: 1400,
-			height: 900,
-			margin: 0.04,
+      width: 960,
+			height: 700,
+			margin: 0.01,
       minScale: 0.2,
       maxScale: 2,
       disableLayout: false,
