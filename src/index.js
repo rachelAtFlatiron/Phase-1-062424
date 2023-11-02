@@ -9,19 +9,41 @@ const bookForm = document.querySelector('#book-form'); //book form
     //generate JSON for 5 technology bookstores with the following fields: location, name, address, number
     //add an id field that increments by one starting with an id of 4
 
-
-///////////////////////////////
-// communicating with server //
-///////////////////////////////
+//saving in a const for ease of access later on
+const url = "http://localhost:4000"
 //✅ 2. fetch request to get all books
 //✅ 2a. save the base url as a const (to reuse later)
-  //✅ 2b. render books from database instead of from data.js
+//✅ 2b. render books from database instead of from data.js
+fetch(`${url}/books`) //returns promise
+//promise is resolved 
+.then((res) => {
 
+  return res.json() //res.json returns a promise
+})
+.then((books) => {
+  //coming from data.js
+  //bookStore.inventory.forEach(renderBook)
+  //data is coming from our json-server (localhost:3000) which is connected to db.json
+
+  books.forEach(renderBook)
+})
 
 //✅ 3. use db.json to get information about the store
 //✅ 3a. make a fetch request
-  //✅ 3b. use data to update DOM
+//✅ 3b. use data to update DOM
 //✅ 3c. add a .catch for errors
+fetch(`${url}/stores/3`)
+.then((res) => { return res.json() }) //res.json returns a promise
+//.then(res => res.json()) //shorthand for the above
+.then((stores) => {
+  console.log(stores)
+  renderHeader(stores)
+  renderFooter(stores)
+})
+.catch((err) => {
+  //typically, render an error message on page 
+  console.error(`there was an error: ${err}`)
+})
 
 /**
  * 
@@ -126,9 +148,8 @@ bookForm.addEventListener('submit', (e) => {
   renderBook(book); // display new book to DOM
 })
 
-renderHeader(bookStore)
-renderFooter(bookStore)
-bookStore.inventory.forEach(renderBook)
+
+
 
 
 
