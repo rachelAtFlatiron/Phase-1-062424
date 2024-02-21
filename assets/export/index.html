@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>VSCode Reveal intro</title>
+  <title>02_dom_manipulation</title>
 
   <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
   <meta name="author" content="Hakim El Hattab">
@@ -53,6 +53,13 @@
 	
 
    
+<style>
+  :root {
+     --r-main-font-size: 24px;
+        
+  }
+</style>
+
 
 </head>
 
@@ -84,11 +91,12 @@
             <h4>Learning Goals</h4>
 <ul>
 <li>Review what the DOM is</li>
+<li>Explain how the DOM is able to read code written in JS files</li>
 <li>Explain what CRUD actions are</li>
 <li>Observe how to do CRUD actions on the DOM</li>
-<li>Explain how the DOM is able to read code written in JS files</li>
 </ul>
-
+<aside class="notes">
+</aside>
             </section>
     
 
@@ -110,13 +118,18 @@
 <li>
 <p>Page transitions are much faster</p>
 </div>
-<div style="width: 60%">
 </li>
 </ul>
-<img src="https://res.cloudinary.com/dlzuobe8h/image/upload/v1665592555/uNQIVeUCgFrlo5i0bxmt398FK5c0MXq6FN8v-4TT6C-06WuV5_K3rNMdvkw8mxvDe5bC83bqQz8F0ljo9UzDyuuGFbl7ikDNtUIDNUTeuLBGzQjNizoypOGYy99DX86mhD2TJX7Kb06dLcA66xkqG0WkqOTIWVw37J9dke9zvGES2RNZFcP7zouru-k0_nw_m5insy.png" alt="Mapquest image" style="width: 100%" />
-<p><a href="https://techcrunch.com/wp-content/uploads/2007/10/picture-242.png">https://techcrunch.com/wp-content/uploads/2007/10/picture-242.png</a></p>
+<div style="width: 60%">
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Main_menu_of_Wikipedia.png" alt="Mapquest image" style="width: 100%" />
   </div>
 </div>
+<aside class="notes">
+- renders based on user behaviors, information from servers <br />
+- click on a link - it directs you to a new page <br />
+- show in console how everything resets to prove refresh <br /> 
+**(type something in, see it disappear) (do NOT use network tab yet)
+</aside>
             </section>
     
 
@@ -130,6 +143,15 @@
 <b>O</b>bject <br/>
 <b>M</b>odel
 </p>
+<aside class="notes">
+- use JS to find piece of page to repaint <br />
+- QUESTION: what does document remind you of (html document delivered to browser) <br />
+- QUESTION: what does object remind you of (key value pairs, data type) <br />
+- Model: representation of something <br />
+- OBJECT THAT REPRESENTS YOUR DOCUMENT in javascript so we can add our <br />
+- represent content of web page in javascript via a model <br />
+- can find, access, and update a specific part of the page
+</aside>
             </section>
     
 
@@ -140,7 +162,15 @@
             
             <img src="./dom-is-a-tree.drawio.svg" alt="The DOM as a Tree" style="width: 80%" />
 <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">MDN: Element</a> - <a href="https://developer.mozilla.org/en-US/docs/Web/API/Node">MDN: Node</a></p>
-
+<aside class="notes">
+- elements: HTML tag (script, p, form, etc.)<br />
+- all elements have access to specific methods inherited from the base class (show MDN list) <br />
+- all elements can have children: above is a tree, each 'leaf' is a node <br />
+- you can see parents/children/hierarchy based on indentation in HTML <br />
+- element is a type of node, all nodes also have methods inherited from base class (show MDN list) <br />
+- methods accessible to DOM objects come from node and elements <br />
+- innerText (aware of break elements, ignores hidden elements) vs textContent
+</aside>
             </section>
     
 
@@ -166,10 +196,19 @@
 <li>Add content with <code>.textContent=</code></li>
 <li>Create elements with <code>.createElement</code></li>
 <li>Append elements to the DOM with <code>.appendChild</code> and <code>.append</code></li>
-<li>Explain the dangers of <code>innerHTML=</code> and when it’s safe to use</li>
+<li>Explain the dangers of <code>innerHTML=</code></li>
 <li>Remove content with <code>.remove</code></li>
+<li>Visit <a href="https://en.wikipedia.org/wiki/The_Most_Unwanted_Song" rel="noopener noreferrer" target="_blank">Wikipedia</a> to practice</li>
 </ul>
-
+<aside class="notes">
+- elements inherit from nodes, nodes can also be text or comments <br />
+- what does querySelector return (first matching node)?  what does getElementById return? (single node) <br />
+- what does querySelectorAll/getElementsByClassName return? (array, NodeList) <br />
+- textContent, innerHTML, see and read <br />
+- HTMLCollection (document elements), NodeList (document nodes) <br />
+- demo the above with wikipedia article: changing text content, getting individual/list nodes, mapping over lists, accessing nested nodes etc. <br />
+- appendChild(), can only receive on node, append(x, y, ...) can receive multiple nodes
+</aside>
             </section>
     
 
@@ -178,13 +217,52 @@
     
         <section >
             
-            <h4>Navigating the TVMaze Website</h4>
-<ul>
-<li>Visit <a href="https://www.tvmaze.com/" rel="noopener noreferrer" target="_blank">TVMaze</a></li>
-<li class="fragment">Use <code>getElementById</code> to find the container for today’s popular shows</li>
-<li class="fragment">Explore using <code>querySelector</code> to get the div inside of that container</li>
-</ul>
+            <h4>The Dangers of innerHTML=</h4>
+<iframe src="https://codesandbox.io/embed/dark-silence-5rbq0x?fontsize=14&hidenavigation=1&theme=dark"
+  style="width:100%; height:700px; border:0; border-radius: 4px; overflow:hidden;"
+  title="dark-silence-5rbq0x"
+  allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+  sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+></iframe>
+<aside class="notes">
+- one can run their own code in your website
+</aside>
+            </section>
+    
 
+
+
+    
+        <section >
+            
+            <h4>Bread and Butter tools</h4>
+<ul>
+<li>Create
+<ul>
+<li><code>document.createElement()</code></li>
+</ul>
+</li>
+<li>Read
+<ul>
+<li><code>querySelector()</code> &amp; <code>querySelectorAll()</code></li>
+</ul>
+</li>
+<li>Update
+<ul>
+<li><code>textContent =</code></li>
+<li><code>append()</code></li>
+<li><code>classList</code> for adding and removing classes from an element</li>
+<li>dot notation for editing properties (eg. <code>img.src = imageUrl</code>, or <code>div.className = &quot;card&quot;</code>)</li>
+</ul>
+</li>
+<li>Destroy
+<ul>
+<li><code>remove()</code></li>
+</ul>
+</li>
+</ul>
+<aside class="notes">
+</aside>
             </section>
     
 
@@ -197,11 +275,13 @@
 <ul>
 <li><code>renderHeader()</code>: renders the header content via JS</li>
 <li><code>renderFooter()</code>: renders the footer content via JS</li>
-<li>Use <code>querySelectorAll()</code> for grabbing content from a website via JS</li>
-<li><code>renderBook()</code>: create a list item for a book and insert it into the list</li>
+<li><code>renderBook()</code>: create a list item for a book and inserts it into the list</li>
 <li><code>removeBook(index)</code>: removes a book li from the DOM by its index in the <code>ul</code></li>
 </ul>
-
+<aside class="notes">
+- render: use to describe displaying to user, putting in HTML, render to DOM <br />
+- hardcode things you know will stay on the page and won't change
+</aside>
             </section>
     
 
@@ -213,13 +293,15 @@
             <h4>Links!</h4>
 <ul>
 <li><a href="https://eloquentjavascript.net/14_dom.html">DOM chapter in Eloquent JavaScript</a></li>
+<li><a href="https://betterprogramming.pub/dom-manipulation-the-dangers-of-innerhtml-602f4119d905">The Dangers of InnerHTML</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/NodeList">MDN - NodeList</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection">MDN - HTMLCollection</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Document">MDN - Document</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Element">MDN - Element</a></li>
 <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Node">MDN - Node</a></li>
 </ul>
-
+<aside class="notes">
+</aside>
             </section>
     
 
@@ -311,7 +393,7 @@
       //#keyboardCondition: null,
       overview: true,
       center: true,
-      touch: true,
+      touch: false,
       loop: false,
       rtl: false,
       //#navigationMode: 'default', linear grid
@@ -358,9 +440,9 @@
       parallaxBackgroundVertical: 0,
 
       //Presentation Size
-      width: 1400,
-			height: 900,
-			margin: 0.04,
+      width: 960,
+			height: 700,
+			margin: 0.01,
       minScale: 0.2,
       maxScale: 2,
       disableLayout: false,
