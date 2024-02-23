@@ -5,6 +5,15 @@ const bookForm = document.querySelector('#book-form'); //book form
 
 
 //✅ 1a. start json-server, examine data structure
+//json-server --watch db.json
+//json-server: the package you will be using (the program json-server)
+//--watch: this is a flag (an option to include with starting the program)
+//db.json: file name (MAKE SURE YOU ARE IN THE FOLDER WITH DB.JSON)
+
+//if you ever see resources /posts /comments /profile
+//you probably started json-server in a folder with no existing db.json
+//therefore it created a default one for you
+
 //✅ 1b. use chat-gpt to generate additional stores
     //generate JSON for 5 technology bookstores with the following fields: location, name, address, number
     //add an id field that increments by one starting with an id of 4
@@ -14,6 +23,7 @@ const bookForm = document.querySelector('#book-form'); //book form
 // communicating with server //
 ///////////////////////////////
 //✅ 2. fetch request to get all books
+const url = "http://localhost:3000"
 //✅ 2a. save the base url as a const (to reuse later)
   //✅ 2b. render books from database instead of from data.js
 
@@ -22,6 +32,20 @@ const bookForm = document.querySelector('#book-form'); //book form
 //✅ 3a. make a fetch request
   //✅ 3b. use data to update DOM
 //✅ 3c. add a .catch for errors
+//this is a fetch GET, the default
+fetch(`${url}/books`) 
+//.then wil execute once previous promise has been fulfilled
+.then(response => response.json()) //res.json() is also a promise
+.then(data => data.forEach(book => renderBook(book)))
+.catch(error => alert(error)) //this is part of fetch...then...then..catch
+
+fetch(`${url}/stores`)
+.then(response => response.json())
+.then(data => {
+  let curStore = data[0]
+  renderHeader(curStore)
+  renderFooter(curStore)
+})
 
 /**
  * 
@@ -126,9 +150,6 @@ bookForm.addEventListener('submit', (e) => {
   renderBook(book); // display new book to DOM
 })
 
-renderHeader(bookStore)
-renderFooter(bookStore)
-bookStore.inventory.forEach(renderBook)
 
 
 
