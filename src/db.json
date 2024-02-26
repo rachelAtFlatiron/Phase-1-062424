@@ -26,8 +26,10 @@
     },
     {
       "location": "LaLaLand",
-      "name": "BooksRUs",
+      "address": "",
       "number": "555-555-5555",
+      "name": "BooksRUs",
+      "hours": "",
       "id": 4
     }
   ],
@@ -141,24 +143,6 @@
       ],
       "inventory": 20,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/41oYsXjLvZL._SY344_BO1,204,203,200_.jpg"
-    },
-    {
-      "title": "Designing Data Intensive Applications",
-      "author": "Martin Kleppmann",
-      "price": 20,
-      "inventory": 11,
-      "imageUrl": "https://m.media-amazon.com/images/I/91YfNb49PLL._SY522_.jpg",
-      "reviews": [],
-      "id": 8
-    },
-    {
-      "title": "Designing Data Intensive Applications",
-      "author": "Martin Kleppmann",
-      "price": 20,
-      "inventory": 11,
-      "imageUrl": "https://m.media-amazon.com/images/I/91YfNb49PLL._SY522_.jpg",
-      "reviews": [],
-      "id": 9
     }
   ]
 }
