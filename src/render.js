@@ -1,5 +1,6 @@
 /* renders one book object as card*/
 function renderBook(book) {
+
 	const li = document.createElement("li");
 	const titleNode = document.createElement("h3");
 	const authorNode = document.createElement("p");
@@ -8,6 +9,7 @@ function renderBook(book) {
 	const deleteBtn = document.createElement("button");
 	const pInventory = document.createElement("input");
 
+	li.id = book.id
 	li.className = "card";
 	titleNode.textContent = book.title;
 	authorNode.textContent = book.author;
@@ -18,8 +20,22 @@ function renderBook(book) {
 
 	deleteBtn.textContent = "Delete";
 	deleteBtn.addEventListener("click", (e) => {
-
 		//✅ 2a. update the server with a delete request
+		fetch(`${url}/books/${book.id}`, {
+			method: 'DELETE'
+		})
+		.then(res => {
+			if (res.ok){
+				return res.json()
+			} else {
+				alert('something went wrong')
+			}
+		})
+		.then(data => {
+			//remove the book from the page
+			li.remove()
+		})
+		.catch(err => alert('server is down probably'))
 
 	});
 

@@ -50,15 +50,41 @@ storeForm.addEventListener("submit", (e) => {
 		name: e.target.name.value,
 		number: e.target.number.value,
 		location: e.target.location.value,
+		//you don't need every key/value pair for a PATCH
 	};
 	if (storeEditMode) {
+		let id = storeSelector.value
+		console.log(id)
 		//✅ 1. update new store in database
-		//✅ 1a. create marker for current store in editStoreButton on click event
-    	//✅ 1b. update the store in the DOM - pessimistic rendering - and persist store
+		// ${url}/stores selects all the stores
+		// ${url}/stores/${id} selects ONE store with the id ${id}
+		fetch(`${url}/stores/${id}`, {
+			method: 'PATCH',
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify(store)
+		})
+		.then(res => {
+			if (res.ok){
+				return res.json()
+			} else {
+				alert('something went wrong')
+			}
+		})
+		.then(data => {
+			renderHeader(data)
+			renderFooter(data)
+		})
+		.catch(err => alert('server is down'))
 		
 
 	//✅ 1c. create new store and add to database
 	} else {
+		postJSON(`${url}/stores`, store)
+		.then(data => {
+			addSelectOptionForStore(data)
+		})
 
 	}
 	hideStoreForm();
@@ -66,6 +92,7 @@ storeForm.addEventListener("submit", (e) => {
 });
 
 //✅ 2. make delete request for a book in render.js
+
 
 /*
  *

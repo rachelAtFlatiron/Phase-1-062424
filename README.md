@@ -1,4 +1,9 @@
 # Full CRUD Requests
+
+## Documentation
+
+### exampleFile.js: function xyz takes parameters xyz, it does xyz, it returns xyz
+
 ## SWBAT
 - [ ] Review how to send a PATCH request using HTML forms and JavaScript
 - [ ] Review how to send a DELETE request using HTML buttons and JavaScript

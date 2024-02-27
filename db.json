@@ -2,7 +2,7 @@
   "stores": [
     {
       "id": 1,
-      "location": "Seattle",
+      "location": "Cleveland",
       "address": "333 st ne Seattle wa 99999",
       "number": "123456789",
       "name": "Easley's Technical Books",
@@ -12,7 +12,7 @@
       "id": 2,
       "location": "New York",
       "address": "555 pl sw NY 10099",
-      "number": "1110009999",
+      "number": "0000000000",
       "name": "Coding Books and more!",
       "hours": "Monday - Friday 10am - 9pm"
     },
@@ -23,23 +23,15 @@
       "number": 5554443333,
       "name": "Tech BooksRus",
       "hours": "Thursday - Saturday 11am - 7pm"
+    },
+    {
+      "name": "TEST",
+      "number": "33333333",
+      "location": "TEST",
+      "id": 4
     }
   ],
   "books": [
-    {
-      "id": 1,
-      "title": "Eloquent JavaScript: A Modern Introduction to Programming",
-      "author": "Marjin Haverbeke",
-      "price": 10,
-      "reviews": [
-        {
-          "userID": 1,
-          "content": "Good book, but not great for new coders"
-        }
-      ],
-      "inventory": "15",
-      "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/51IKycqTPUL._SX218_BO1,204,203,200_QL40_FMwebp_.jpg"
-    },
     {
       "id": 2,
       "title": "JavaScript & JQuery: Interactive Front-End Web Development",
