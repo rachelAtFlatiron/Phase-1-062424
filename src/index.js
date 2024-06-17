@@ -67,6 +67,12 @@ const inventory = [
   }
 ]
 
+//HOISTING DIFFERENCES
+//function definitions are hoisted to the top (I can invoke them before I see the written logic)
+//console.log(formatPriceFunctionDefinition(1234.28394))
+//arrow functions are not hoisted to the top (I cannot invoke them until after I see the definition)
+//console.log(formatPriceArrowFunction(3.2523))
+
 //✅ 1. Create hello world using REGULAR functions
 //🛑 run live server and call in console
 //🛑 wsl users have to manually type in the address
