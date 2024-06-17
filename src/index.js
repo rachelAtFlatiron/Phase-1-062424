@@ -47,6 +47,8 @@ function renderBook(book) {
 	});
 	//✅ 1c. define cb outside of renderBook
 
+  //Display (see browser) -> Behavior (submit form) -> Updates (adding a new book) -> Display (see browser)
+
 	bookList.append(li);
 	li.append(titleNode);
 	li.append(authorNode);
@@ -95,6 +97,8 @@ bookForm.addEventListener('submit', (e) => {
 	//💡 what differences are there between the new book and the values in data.js
 	renderBook(newBook)
 })
+
+//Display (see browser) -> Behavior (on click) -> Updates (classNames, button text) -> Display (see browser)
 
 //✅  3. WE DO: recap - show the form when you click on the "add new book" button
 //🛑 show css; demonstrate by manually changing class in inspector
