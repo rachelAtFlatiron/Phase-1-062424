@@ -5,9 +5,19 @@ const bookForm = document.querySelector('#book-form'); //book form
 
 
 //✅ 1. start json-server, examine data structure
+//json-server --watch db.json
+//json-server: the package you will be using (the program json-server)
+//--watch: this is a flag (an option to include with starting the program)
+//db.json: file name (MAKE SURE YOU ARE IN THE FOLDER WITH DB.JSON)
+
+//if you ever see resources /posts /comments /profile
+//you probably started json-server in a folder with no existing db.json
+//therefore it created a default one for you
+
 //🛑 check /stores and /books and /comments
 //🛑 show status codes in terminal
 //🛑 pull up docs for json-server to reference
+
 //✅ 1b. use chat-gpt to generate additional stores
     //generate JSON for 5 technology bookstores with the following fields: location, name, address, number
     //add an id field that increments by one starting with an id of 4
@@ -19,7 +29,8 @@ const bookForm = document.querySelector('#book-form'); //book form
 //✅ 2. fetch request to get all books
 //✅ 2a. save the base url as a const (to reuse later)
 const url = "http://localhost:3000"
-fetch(`${url}/books`)
+fetch(`${url}/books`) //returns promise
+//.then wil execute once previous promise has been fulfilled
 .then(res => {
   console.log(res)
   //🛑 try without the return
@@ -65,6 +76,7 @@ fetch(`${url}/stores/1`)
   //🛑 add catch to fetch /books
   document.querySelector('#address').textContent = "something went wrong";
 })
+//if(res.ok)?
 
 /**
  * 
