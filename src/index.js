@@ -20,6 +20,8 @@ const url = "http://localhost:3000";
 //🛑 review: fetch request
 bookForm.addEventListener("submit", (e) => {
 	e.preventDefault();
+  //do not give id, json-server handles that for you
+	//id is super important, and it always has to be unique
 	const book = {
 		title: e.target.title.value,
 		author: e.target.author.value,
