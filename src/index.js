@@ -1,7 +1,7 @@
-//Data 
+//array of objects
 const inventory = [
   {
-    id: 1,
+    id: 1, //unique identifier
     title: 'Eloquent JavaScript: A Modern Introduction to Programming',
     author: 'Marjin Haverbeke',
     price: 10.00,
@@ -65,37 +65,112 @@ const inventory = [
   }
 ]
 
-//✅ Review variables (let, const)
-//✅ Review strings
-//✅ Review math
-//✅ Review if/else
-//✅ Review arrays?
-//✅ Review objects?
 
 //✅ 1. Create hello world using REGULAR functions
-function helloWorld(){
-  return
+//entire definition gets hoisted to the top
+function helloWorld(name){
+    // string interpolation
+    return `hello ${name}`
 }
+
+//only variable declaration gets hoisted to the top, not the assigned arrow function
+//this used explicit return (curly braces and 'return' keyword)
+const helloArrow = (name) => {
+    return `hello ${name}`
+}
+
+
 //✅ 2. For Easley's bookstore, create formatPrice(price)
+// paramter: float
+// return a string in the format $xx.xx
+// formatPrice(3.3) => $3.30
+function formatPrice(price){
+    return `$${parseFloat(price).toFixed(2)}`
+}
 
 //✅ 3. Make an arrow function version of formatPrice
+// if arrow function only has one line of code (return) use implicit return
+const arrowPrice = (price) => `$${parseFloat(price).toFixed(2)}`
 
 //✅ 4. WE DO: create a blurb() function that accepts a book as an argument and logs a message in the following format:
 //'Eloquent JavaScript: A Modern Introduction to Programming by Marjin Haverbeke is on sale for $10.00'
 
+//let book = inventory[0]
+//arguments that are passed in on invocation will henceforth be known as "book"
+const blurb = (book) => { 
+    let price = formatPrice(book.price)
+    //console.log(`${book.title} by ${book.author} is on sale for ${price}`)
+    return `${book.title} by ${book.author} is on sale for ${price}`
+    // return `${book.title} by ${book.author} is on sale for ${formatPrice(book.price)}`
+}
+
+let firstBook = inventory[0]
+blurb(firstBook) // 'Eloquent JavaScript: A Modern Introduction to Programming by Marjin Haverbeke is on sale for $10.00'
+blurb(inventory[1]) //'JavaScript & JQuery: Interactive Front-End Web Development by Jon Duckett is on sale for $45.75'
+blurb(inventory[2]) //'JavaScript: The Good Parts by Douglas Crockford is on sale for $36.00'
+
+//using let...of... to access element directly
+for(let book of inventory){
+    //console.log(blurb(book))
+}
+//using index to access index of book in inventory
+for(let i = 0; i < inventory.length; i++){
+    //console.log(blurb(inventory[i]))
+}
+
+//forEach iterates over each element of inventory
+//it accepts a function as an argument (a.k.a a callback function)
+//forEach invokes the callback function for each book 
+inventory.forEach(blurb)
+
+//defining the callback function directly inside of .forEach
+inventory.forEach((curBook) => {
+    //console.log(curBook.author)
+})
+
 //✅ 5. Call formatPrice on an array of prices
 
 //✅ 5a. Create an array
+const prices = [3.25, 98.33333, 0, 37, 2]
 
 //✅ 5b. Use a for loop to iterate over prices
+for(let curPrice of prices){
+    //console.log(formatPrice(curPrice))
+}
+
+prices.forEach(formatPrice)
+
+//DOES NOT MUTATE ARRAY
+//DOES NOT RETURN NEW ARRAY
+prices.forEach((curPrice) => {
+    //console.log(`$${parseFloat(curPrice).toFixed(2)}`)
+})
 
 //✅ 5c. Use .forEach to iterate over prices
 
 //✅ 5d. Use .map to iterate over prices
+//RETURNS NEW ARRAY WHERE EACH ELEMENT IS UPDATED WITH NEW ELEMENT
+let formattedPrices = prices.map((curPrice) => {
+    //the return value is what will replace the original element
+    return (`$${parseFloat(curPrice).toFixed(2)}`)
+})
 
 //✅ 5e. using .map, for each book in inventory, return blurb(book)
 //output: ['Eloquent JavaScript: A Modern Introduction to Programming is on sale for $10.00', ...]
+let formattedBlurbs = inventory.map((curBook) => {
+    return `${curBook.title} by ${curBook.author} is on sale for ${curBook.price}`
+})
+// formattedBlurbs = inventory.map(blurb)
 
 //✅ 6. Create a version of myMap that uses a for loop to mimic .map
 //input: array, callback function
 //output: a new array
+
+const nums = [1, 2, 3, 4, 5]
+//[10, 20, 30, 40, 50]
+const newNums = nums.map((curNum) => {return curNum * 10})
+
+const strings = ["one", "two", "three", "four", "five"]
+//[3, 3, 5, 4, 4]
+const stringLengths = strings.map((curString) => {return curString.length})
+
