@@ -25,7 +25,7 @@
       "hours": "Thursday - Saturday 11am - 7pm"
     },
     {
-      "name": "TEST",
+      "name": "Gekki",
       "number": "33333333",
       "location": "TEST",
       "id": 4
@@ -125,7 +125,7 @@
           "content": "Great but I just wish it was in JavaScript instead of Java"
         }
       ],
-      "inventory": 20,
+      "inventory": 25,
       "imageUrl": "https://images-na.ssl-images-amazon.com/images/I/41oYsXjLvZL._SY344_BO1,204,203,200_.jpg"
     }
   ]

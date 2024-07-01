@@ -21,28 +21,57 @@ function renderBook(book) {
 	deleteBtn.textContent = "Delete";
 	deleteBtn.addEventListener("click", (e) => {
 		//✅ 2a. update the server with a delete request
+		//make fetch DELETE to our server (will always return an empty object if successful)
+
+		//include book.id so it knows WHICH book from the books resource to delete
 		fetch(`${url}/books/${book.id}`, {
-			method: 'DELETE'
+			method: 'DELETE' //default is GET
 		})
 		.then(res => {
-			if (res.ok){
+			if(res.ok){
 				return res.json()
 			} else {
-				alert('something went wrong')
+				throw 'could not delete book'
 			}
 		})
-		.then(data => {
-			//remove the book from the page
+		.then(data => { //DELETE data is an empty object
+			//if that fetch DELETE was successful, we can remove li from page
 			li.remove()
 		})
-		.catch(err => alert('server is down probably'))
-
 	});
 
 	//✅ 3. update the inventory
-	//✅ 3a. add an onChange event handler
+	//'change' is for when a user makes a change to an input field
+	pInventory.addEventListener('change', (e) => {
+		//e.target - the inventory input field
+		//e.target.value - the inventory input field value
 
-	//✅ 4. generate CSS using chatGPT in chatgpt_style.css
+		//PATCH
+		//need book.id so fetch can know WHICH book to update
+		fetch(`${url}/books/${book.id}`, {
+			//PATCH doesn't need all fields in body of request for update
+			//PUT needs all fields in body of request for update
+			method: 'PATCH',
+			headers: {'content-type': 'application/json'},
+			body: JSON.stringify({
+				//forms will return info as strings, need to convert into integer
+				"inventory": parseInt(e.target.value)
+			})
+		})
+		.then(res => {
+			if(res.ok){
+				return res.json()
+			} else {
+				throw "update book went wrong"
+			}
+		})
+		.then(data => {
+			//we get back the new version of the book
+			console.log(data)
+			//don't need to render anything
+		})
+		.catch(err => console.log('server is probs off'))
+	})
 
 	const pStock = document.createElement("p");
 	pStock.className = "grey";

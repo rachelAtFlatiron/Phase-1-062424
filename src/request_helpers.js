@@ -1,4 +1,5 @@
 /* function to return a promise for GET request */
+//this returns a promise
 function getJSON(url) {
   return fetch(url).then(response => response.json())
 }

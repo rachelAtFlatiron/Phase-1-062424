@@ -10,36 +10,23 @@ const editStoreBtn = document.querySelector("#edit-store"); //button to use stor
 const storeForm = document.querySelector("#store-form"); //selector for store form
 let storeEditMode = false; //boolean for whether store form is being used for edit or create
 let storeFormVisible = false; //boolean for whether store form is visible or not
-
-function fillStore(form, data) {
-	for (field in data) {
-		if (form[field]) {
-			form[field].value = data[field];
-		}
-	}
-}
-
-function populateStoreEditForm(store) {
-	const form = document.querySelector("#store-form");
-	fillStore(form, store);
-	showStoreForm();
-}
-
-toggleBookFormButton.addEventListener("click", toggleBookForm);
-toggleStoreFormButton.addEventListener("click", toggleStoreForm);
-
+let currentEditStoreId = -1;
 /*
-*
-*
-* NEW BUSINESS 
-*
-*
-*/
+ *
+ *
+ * NEW BUSINESS
+ *
+ *
+ */
 
+//✅ 1a. add marker to form for PATCH request
 editStoreBtn.addEventListener("click", (e) => {
+	//gets value of ID of current selected store
 	const selectedStoreId = document.querySelector("#store-selector").value;
+	//turns store form from POST to PATCH
 	storeEditMode = true;
-	//✅ 1a. add marker to form for PATCH request 
+	//getting information for store with store id 'x'
+	//taking that information and populating the store form
 	getJSON(`${url}/stores/${selectedStoreId}`).then(populateStoreEditForm);
 });
 
@@ -54,25 +41,37 @@ storeForm.addEventListener("submit", (e) => {
 	if (storeEditMode) {
 		//✅ 1. update new store in database
 		//✅ 1a. create marker for current store in editStoreButton on click event
-    	//✅ 1b. update the store in the DOM - pessimistic rendering - and persist store
-		
+		//✅ 1b. update the store in the DOM - pessimistic rendering - and persist store
+		fetch(`${url}/stores/${currentEditStoreId}`, {
+			method: "PATCH",
+			body: JSON.stringify(store),
+			headers: { "content-type": "application/json" },
+		})
+			.then((res) => {
+				if (res.ok) {
+					return res.json();
+				} else {
+					throw "error updating store";
+				}
+			})
+			.then((data) => {
+				console.log(data);
+        //rendering here
+			});
 
-	//✅ 1c. create new store and add to database
+		//✅ 1c. create new store and add to database
 	} else {
-
 	}
 	hideStoreForm();
 	e.target.reset();
 });
 
-//✅ 2. make delete request for a book in render.js
-
 /*
  *
- * 
+ *
  * OLD BUSINESS
- *  
- * 
+ *
+ *
  */
 
 /* book form submit */
@@ -88,13 +87,29 @@ bookForm.addEventListener("submit", (e) => {
 		imageUrl: e.target.imageUrl.value,
 	};
 
-	// pessimistic rendering
-	postJSON("http://localhost:3000/books", book)
-		.then((book) => {
-			renderBook(book);
-			e.target.reset();
+	fetch(`${url}/books`, {
+		method: "POST",
+		body: JSON.stringify(book),
+		headers: {
+			"content-type": "application/json",
+		},
+	})
+		.then((res) => {
+			if (res.ok) {
+				//201
+				return res.json();
+			} else {
+				throw "error in creating new book";
+			}
 		})
-		.catch(renderError);
+		.then((data) => {
+			//pessimistic - goal is to have front end accurately display what is in your backend
+			renderBook(data);
+		})
+		.catch((err) => console.log("server probably off"));
+	//optimistic rendering DOES NOT rely on results from server
+	//we can renderBook regardless of if server was successful
+	//renderBook(book)
 });
 
 /* get requests for loading store and book data */
@@ -107,8 +122,38 @@ getJSON("http://localhost:3000/stores")
 	.catch((err) => {
 		console.error(err);
 	});
-getJSON("http://localhost:3000/books")
-	.then((books) => {
-		books.forEach(renderBook);
+
+//fetch GET
+//GET is default, so I don't have to include the second optional parameter (the body of options)
+fetch(`${url}/books`)
+	.then((res) => {
+		//if the server was able to respond positively (i.e. we are able to reach the resource requested)
+		if (res.ok) {
+			return res.json();
+		} else {
+			//we probably got a 404, 422, 500, any sort of bad server status
+			throw res.statusText;
+		}
 	})
-	.catch(renderError);
+	.then((data) => data.forEach(renderBook))
+	.catch((err) =>
+		console.log("server probably down, fetch request couldn't reach server")
+	);
+
+function fillStore(form, data) {
+	for (field in data) {
+		if (form[field]) {
+			form[field].value = data[field];
+		}
+	}
+}
+
+function populateStoreEditForm(store) {
+	const form = document.querySelector("#store-form");
+	currentEditStoreId = store.id;
+	fillStore(form, store);
+	showStoreForm();
+}
+
+toggleBookFormButton.addEventListener("click", toggleBookForm);
+toggleStoreFormButton.addEventListener("click", toggleStoreForm);
