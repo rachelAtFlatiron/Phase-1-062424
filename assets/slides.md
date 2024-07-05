@@ -118,6 +118,10 @@ https://www.tvmaze.com/api
 
 ---
 
+<img src="./url-breakdown.png" />
+
+---
+
 ### Google Books API Checklist (part 1) - Creating your Project and API key
 
 - [Read the docs for Using the API](https://developers.google.com/books/docs/v1/using) {.fragment}
