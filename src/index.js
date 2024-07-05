@@ -4,8 +4,33 @@ const apiSearchForm = document.querySelector("#search-form");
 const apiRoot = "https://api.tvmaze.com";
 
 apiSearchForm.addEventListener("submit", (e) => {
-	
 	e.preventDefault();
+	resultsDiv.innerHTML = "";
+
+	const search = e.target.search.value 
+	fetch(`https://www.googleapis.com/books/v1/volumes?q=${search}`)
+	.then(res => res.json())
+	//data.items[0].volumeInfo.description
+	.then(books => {
+		console.log(books)
+		books.items.forEach(book => {
+			console.log(book)
+			const title = document.createElement('h2')
+			const author = document.createElement('p')
+			const image = document.createElement('img')
+			const sum = document.createElement('p')
+
+			title.textContent = book.volumeInfo.title 
+			author.textContent = book.volumeInfo.authors[0]
+			image.src = book.volumeInfo.imageLinks.thumbnail
+			sum.textContent = book.volumeInfo.description
+
+			resultsDiv.append(title, author, image, sum)
+
+		})
+		
+	})
+
 	
 });
 
@@ -13,12 +38,11 @@ apiSearchForm.addEventListener("submit", (e) => {
 //2. this acts almost like a password
 //3. we need it to access data from the google books api
 
-function renderShows(e) {
-	resultsDiv.innerHTML = "";
-	let searchValue = e.target.search.value;
 
+function renderShows(search) {
+	
 	// https://api.tvmaze.com/singlesearch/shows?q=searchValue
-	fetch(`${apiRoot}/singlesearch/shows?q=${searchValue}&embed=episodes`)
+	fetch(`${apiRoot}/singlesearch/shows?q=${search}&embed=episodes`)
 		.then((res) => {
 			if (res.ok) {
 				return res.json();
